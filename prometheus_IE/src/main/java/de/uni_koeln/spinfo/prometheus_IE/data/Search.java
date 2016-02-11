@@ -1,4 +1,4 @@
-package de.uni_koeln.spinfo.prometheus_IE;
+package de.uni_koeln.spinfo.prometheus_IE.data;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

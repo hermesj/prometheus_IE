@@ -1,4 +1,4 @@
-package de.uni_koeln.spinfo.prometheus_IE;
+package de.uni_koeln.spinfo.prometheus_IE.data;
 
 import java.util.List;
 
