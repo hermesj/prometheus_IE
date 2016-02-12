@@ -39,16 +39,17 @@ public class TimeExParser {
 		Annotation annotation = new Annotation(toProcess);
 	      annotation.set(CoreAnnotations.DocDateAnnotation.class, "2016-02-12");
 	      pipeline.annotate(annotation);
-	      //toReturn = annotation.get(CoreAnnotations.CalendarAnnotation.class);
-	      System.out.println(annotation.get(CoreAnnotations.TextAnnotation.class));
-	      List<CoreMap> timexAnnsAll = annotation.get(TimeAnnotations.TimexAnnotations.class);
-	      for (CoreMap cm : timexAnnsAll) {
-	        List<CoreLabel> tokens = cm.get(CoreAnnotations.TokensAnnotation.class);
-	        System.out.println(cm + " [from char offset " +
-	            tokens.get(0).get(CoreAnnotations.CharacterOffsetBeginAnnotation.class) +
-	            " to " + tokens.get(tokens.size() - 1).get(CoreAnnotations.CharacterOffsetEndAnnotation.class) + ']' +
-	            " --> " + cm.get(TimeExpression.Annotation.class).getTemporal());
-	      }
+	      toReturn = annotation.get(TimeAnnotations.TimexAnnotations.class).toString();
+	      //System.out.println(annotation.get(CoreAnnotations.TimexAnnotation.class));
+	      //System.out.println(annotation.toShorterString(new String[0]));
+//	      List<CoreMap> timexAnnsAll = annotation.get(TimeAnnotations.TimexAnnotations.class);
+//	      for (CoreMap cm : timexAnnsAll) {
+//	        List<CoreLabel> tokens = cm.get(CoreAnnotations.TokensAnnotation.class);
+//	        System.out.println(cm + " [from char offset " +
+//	            tokens.get(0).get(CoreAnnotations.CharacterOffsetBeginAnnotation.class) +
+//	            " to " + tokens.get(tokens.size() - 1).get(CoreAnnotations.CharacterOffsetEndAnnotation.class) + ']' +
+//	            " --> " + cm.get(TimeExpression.Annotation.class).getTemporal());
+//	      }
 	      System.out.println("--");
 		return toReturn;
 	}
