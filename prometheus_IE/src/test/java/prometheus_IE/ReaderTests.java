@@ -26,8 +26,24 @@ public class ReaderTests {
 		
 		SortedMap<String, String> descriptions = pr.getDescriptions(testFile);
 		Set<String> keySet = descriptions.keySet();
+		int i=0;
 		for (String key : keySet) {
 			nerp.doNER(descriptions.get(key));
+			System.out.println();
+			if(++i>5){
+				break;
+			}
+		}
+	}
+	
+	//@Test
+	public void testReader() throws JAXBException{
+		File testFile = new File("data/descriptionFiles/dmr_description.xml");
+		PrometheusReader pr = new PrometheusReader();
+		SortedMap<String, String> descriptions = pr.getDescriptions(testFile);
+		Set<String> keySet = descriptions.keySet();
+		for (String key : keySet) {
+			System.out.println(key + "\t" + descriptions.get(key));
 			System.out.println();
 		}
 	}

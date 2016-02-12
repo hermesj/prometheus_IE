@@ -10,15 +10,12 @@ import edu.stanford.nlp.util.Triple;
 
 public class NERParser {
 	
-	public void doNER(String toProcess){
+	private AbstractSequenceClassifier<CoreLabel> classifier;
+	
+	public NERParser(){
 		String serializedClassifier = "edu/stanford/nlp/models/ner/german.dewac_175m_600.crf.ser.gz";
-	    //String serializedClassifier = "classifiers/english.all.3class.distsim.crf.ser.gz";
-	    try {	    	
-			AbstractSequenceClassifier<CoreLabel> classifier = CRFClassifier.getClassifier(serializedClassifier);
-			//System.out.println(classifier.classifyToString(toProcess));
-			// This one puts in spaces and newlines between tokens, so just print not println.
-			System.out.print(classifier.classifyToString(toProcess, "tsv", false));
-		      
+		try {
+			classifier  = CRFClassifier.getClassifier(serializedClassifier);
 		} catch (ClassCastException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -29,6 +26,20 @@ public class NERParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String doNER(String toProcess){
+		
+	    //String serializedClassifier = "classifiers/english.all.3class.distsim.crf.ser.gz";
+	    try {	    	
+			String toReturn = classifier.classifyWithInlineXML(toProcess);
+	    	return toReturn;
+		      
+		} catch (ClassCastException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} 
 	}
 
 }
