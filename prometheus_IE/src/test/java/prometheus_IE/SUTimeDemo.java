@@ -5,8 +5,16 @@ import java.util.Properties;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.pipeline.*;
-import edu.stanford.nlp.time.*;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.AnnotationPipeline;
+import edu.stanford.nlp.pipeline.POSTaggerAnnotator;
+import edu.stanford.nlp.pipeline.TokenizerAnnotator;
+import edu.stanford.nlp.pipeline.TokenizerAnnotator.TokenizerType;
+import edu.stanford.nlp.pipeline.WordsToSentencesAnnotator;
+import edu.stanford.nlp.tagger.maxent.MaxentTagger;
+import edu.stanford.nlp.time.TimeAnnotations;
+import edu.stanford.nlp.time.TimeAnnotator;
+import edu.stanford.nlp.time.TimeExpression;
 import edu.stanford.nlp.util.CoreMap;
 
 public class SUTimeDemo {
@@ -20,12 +28,14 @@ public class SUTimeDemo {
   public static void main(String[] args) {
     Properties props = new Properties();
     AnnotationPipeline pipeline = new AnnotationPipeline();
-    pipeline.addAnnotator(new TokenizerAnnotator(false));
+    pipeline.addAnnotator(new TokenizerAnnotator(false, TokenizerType.German));
     pipeline.addAnnotator(new WordsToSentencesAnnotator(false));
-    pipeline.addAnnotator(new POSTaggerAnnotator(false));
+    
+    MaxentTagger mt = new MaxentTagger( "edu/stanford/nlp/models/pos-tagger/german/german-dewac.tagger");
+    pipeline.addAnnotator(new POSTaggerAnnotator(mt));
     pipeline.addAnnotator(new TimeAnnotator("sutime", props));
 
-   String text ="Next Monday, I will take a ride back to 1984."; 
+   String text ="Next monday, I will return to the year 1984"; 
       Annotation annotation = new Annotation(text);
       annotation.set(CoreAnnotations.DocDateAnnotation.class, "2016-02-12");
       pipeline.annotate(annotation);
@@ -40,6 +50,4 @@ public class SUTimeDemo {
       }
       System.out.println("--");
     }
-  
-
 }
