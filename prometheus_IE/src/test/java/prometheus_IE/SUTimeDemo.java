@@ -27,6 +27,8 @@ public class SUTimeDemo {
    */
   public static void main(String[] args) {
     Properties props = new Properties();
+    props.put("pos.model","edu/stanford/nlp/models/pos-tagger/german/german-hgc.tagger");
+    props.put("ner.model","edu/stanford/nlp/models/ner/german.hgc_175m_600.crf.ser.gz");
     AnnotationPipeline pipeline = new AnnotationPipeline();
     pipeline.addAnnotator(new TokenizerAnnotator(false, TokenizerType.German));
     pipeline.addAnnotator(new WordsToSentencesAnnotator(false));
